@@ -92,6 +92,7 @@
        flipVelocity =  -40.0;
         fallAcceleration = 10.0;
     }
+    
 }
 -(void) flipback {
  
@@ -100,24 +101,19 @@
     y += flipVelocity;
     flipVelocity += fallAcceleration;
 
+    [UIView animateWithDuration:.1
+                          delay:.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [marioView setTransform:CGAffineTransformRotate(marioView.transform, M_PI)];
+                     }completion:^(BOOL finished){
+                         
+                     }];
+
     if (y > self.y0) {
         NSLog(@"da nhan tin hieu flip");
         y = self.y0 ;
         isFlipping = false;
-        [UIView animateWithDuration:.2
-                              delay:0
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^{
-                             [marioView setTransform:CGAffineTransformRotate(marioView.transform, -1*M_PI)];
-                         }completion:^(BOOL finished){
-                             [UIView animateWithDuration:.2
-                                                   delay:0
-                                                 options:UIViewAnimationOptionCurveLinear
-                                              animations:^{
-                                                  [marioView setTransform:CGAffineTransformRotate(marioView.transform, M_PI)];
-                                              }completion:^(BOOL finished){
-                              }];
-                         }];
     }
     
 self.view.center = CGPointMake(self.view.center.x,y );
